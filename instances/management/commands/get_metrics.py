@@ -29,7 +29,7 @@ DAY_MAPPING = {
 class Command(BaseCommand):
     help = 'Get statistics of datasets'
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **kwargs):  # noqa: unused-argument
         self.calculate_gender()
         self.get_top_procedures()
         self.get_most_least_popular_day()

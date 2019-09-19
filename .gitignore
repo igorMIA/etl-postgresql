@@ -129,3 +129,4 @@ dmypy.json
 /input_files/Patient.ndjson.txt
 
 /.idea
+.DS_Store

@@ -1,5 +1,6 @@
 import time
 from abc import ABC, abstractmethod
+from json import JSONDecodeError
 from django.core.management.base import BaseCommand, CommandError
 from django.db import IntegrityError
 
@@ -24,7 +25,10 @@ class BaseLoadCommand(BaseCommand, ABC):
             with open(file_path, 'r') as f:
                 tmp = []
                 for line in f:
-                    obj = self._process_object(line)
+                    try:
+                        obj = self._process_object(line)
+                    except (JSONDecodeError, KeyError, ValueError, IndexError):
+                        continue
                     if obj:
                         tmp.extend(obj)
                     if len(tmp) == self.CHUNK_SIZE:
@@ -43,7 +47,7 @@ class BaseLoadCommand(BaseCommand, ABC):
         pass
 
     def _write_objects(self, list_of_objects):
-        objects = [self.MODEL_CLASS(**obj) for obj in list_of_objects]
+        objects = [self.MODEL_CLASS(**obj) for obj in list_of_objects]  # noqa: not-callable
         try:
             self.COUNT += len(self.MODEL_CLASS.objects.bulk_create(objects, ignore_conflicts=True,
                                                                    batch_size=self.CHUNK_SIZE))
