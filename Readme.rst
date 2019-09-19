@@ -12,7 +12,7 @@ Deploying
 Using make
 ^^^^^^^^^^^^^^^^^^^^^
 
-later
+**docker-compose library is required**
 
 *  to load data run::
 
