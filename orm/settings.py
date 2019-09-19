@@ -39,7 +39,6 @@ TEMPLATES = [
         },
     },
 ]
-WSGI_APPLICATION = 'orm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

@@ -1,7 +1,7 @@
 etl-postgresql
-=======
+===============
 
-later
+basic etl using Django and PostgreSQL
 
 :License: MIT
 
@@ -22,3 +22,21 @@ later
 
     $ make run_tests
 
+*  to start application(load data automatically start application)::
+
+    $ make start_server
+
+*  to stop server run::
+
+    $ make stop_server
+
+Note
+----
+
+Before loaddata command, you should place data files to the ``input_file`` directory.
+Proper file names are:
+
+* Encounter.ndjson.txt
+* Observation.ndjson.txt
+* Patient.ndjson.txt
+* Procedure.ndjson.txt

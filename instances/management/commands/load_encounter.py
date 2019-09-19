@@ -10,17 +10,14 @@ class Command(BaseLoadCommand):
 
     def _process_object(self, line):
         json_object = json.loads(line)
-        try:
-            return [{
-                'source_id': json_object['id'],
-                'patient_id_id': json_object['subject']['reference'].replace('Patient/', ''),
-                'start_date': datetime.datetime.strptime(json_object['period']['start'], "%Y-%m-%dT%H:%M:%S%z"),
-                'end_date': datetime.datetime.strptime(json_object['period']['end'], "%Y-%m-%dT%H:%M:%S%z"),
-                'type_code': self._get_type_code(json_object, 'code'),
-                'type_code_system': self._get_type_code(json_object, 'system')
-            }]
-        except ValueError:
-            return None
+        return [{
+            'source_id': json_object['id'],
+            'patient_id_id': json_object['subject']['reference'].replace('Patient/', ''),
+            'start_date': datetime.datetime.strptime(json_object['period']['start'], "%Y-%m-%dT%H:%M:%S%z"),
+            'end_date': datetime.datetime.strptime(json_object['period']['end'], "%Y-%m-%dT%H:%M:%S%z"),
+            'type_code': self._get_type_code(json_object, 'code'),
+            'type_code_system': self._get_type_code(json_object, 'system')
+        }]
 
     def _get_type_code(self, json_object, code):
         try:
